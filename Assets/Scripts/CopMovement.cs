@@ -44,7 +44,7 @@ public class CopMovement : MonoBehaviour
 
     [SerializeField]
     private GameObject player;
-    private Rigidbody2D body;
+    //private Rigidbody2D body;
     public Vector2 velocity = Vector2.zero;
     public float speed = .25f;
 
@@ -52,7 +52,7 @@ public class CopMovement : MonoBehaviour
     void Start()
     {
         player = GameObject.Find("Player");
-        body = GetComponent<Rigidbody2D>();
+        //body = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame

@@ -33,18 +33,23 @@ public class BeCaught : MonoBehaviour {
                     transform.GetChild(1).localScale += new Vector3(timeRequired, 0);
                 }
                 else
-                { // have robbed them successfully
+                { // have been caught successfully
                     MoneyManager.moneyInPocket = 0;
                     isRobbed = true;
                 }
             }
             else
-            { // if not, decrease size of progress bar
+            { // if not, decrease size of progress bar (if not empty(
                 if (transform.GetChild(1).localScale.x > 0)
                 {
                     transform.GetChild(1).localScale -= new Vector3(timeRequired, 0);
                 }
             }
+        }
+        else
+        {
+            isRobbed = false;
+            transform.GetChild(1).localScale = new Vector3(0,0);
         }
 
     }
