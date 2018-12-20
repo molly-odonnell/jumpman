@@ -67,5 +67,6 @@ public class CopMovement : MonoBehaviour
     void OnBecameInvisible()
     {
         Destroy(gameObject);
+        //GameObject.Find("GameManager").GetComponent<CopManager>().numCops--; 
     }
 }
