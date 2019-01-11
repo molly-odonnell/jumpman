@@ -49,7 +49,7 @@ public class BeCaught : MonoBehaviour {
         else
         {
             isRobbed = false;
-            transform.GetChild(1).localScale = new Vector3(0,0);
+            transform.GetChild(1).localScale = new Vector3(0,.3f);
         }
 
     }

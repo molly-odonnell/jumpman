@@ -44,20 +44,24 @@ public class CopMovement : MonoBehaviour
 
     [SerializeField]
     private GameObject player;
-    //private Rigidbody2D body;
+    private Rigidbody2D copRigidbody2D;
     public Vector2 velocity = Vector2.zero;
     public float speed = .25f;
+    //Random.Range(.15f, .35f);
+
 
     // Use this for initialization
     void Start()
     {
         player = GameObject.Find("Player");
-        //body = GetComponent<Rigidbody2D>();
+        speed = Random.Range(.35f, .55f);
+        copRigidbody2D = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
+
         Vector2 toTarget = player.transform.position - transform.position;
 
 
@@ -67,6 +71,6 @@ public class CopMovement : MonoBehaviour
     void OnBecameInvisible()
     {
         Destroy(gameObject);
-        //GameObject.Find("GameManager").GetComponent<CopManager>().numCops--; 
+        GameObject.Find("GameManager").GetComponent<CopManager>().numC--; 
     }
 }
