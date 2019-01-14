@@ -54,7 +54,7 @@ public class CopMovement : MonoBehaviour
     void Start()
     {
         player = GameObject.Find("Player");
-        speed = Random.Range(.35f, .55f);
+        speed = Random.Range(.45f, .65f);
         copRigidbody2D = GetComponent<Rigidbody2D>();
     }
 
@@ -63,9 +63,9 @@ public class CopMovement : MonoBehaviour
     {
 
         Vector2 toTarget = player.transform.position - transform.position;
-
-
         transform.Translate(toTarget * speed * Time.deltaTime);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation,
+                             Quaternion.identity, speed * Time.deltaTime);
     }
 
     void OnBecameInvisible()
