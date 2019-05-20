@@ -18,6 +18,7 @@ public class PaperSupplier : MonoBehaviour {
 	public TextMesh Sex;
 	public TextMesh Race;
 	public TextMesh Alibi;
+	public bool guilty;
 
 	public static List<int> getIndices(string s){
 		var foundIndexes = new List<int>();
@@ -81,6 +82,11 @@ public class PaperSupplier : MonoBehaviour {
 		//autoMove (Sex, Race);
 		Alibi.text = SpliceText ("         " + input[9,Row], 33);
 		//autoMove (Race, Alibi);
+		if (input [10, Row] == "1") {
+			guilty = true;
+		} else {
+			guilty = false;
+		}
 	}
 
 	public void loadCrimeDesc (string[,] input, int caseNum) {

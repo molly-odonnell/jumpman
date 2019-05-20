@@ -11,6 +11,8 @@ public class ReadDemo : MonoBehaviour {
 	public GameObject CrimeDescPrefab;
 	public GameObject privacyScreen;
 	public AudioSource pageFlip;
+	public AudioSource golfClap;
+	public AudioSource incorrecNoise;
 
 	private int recentInput = 0;
 	private bool waitingForInput = false;
@@ -18,6 +20,8 @@ public class ReadDemo : MonoBehaviour {
 	private string[,] outputGrid;
 	private int NumberOfCases;
 	private int i;
+
+	private bool moveTheOtherSheets;
 
 	void Start () {
 		CSVReader.DebugOutputGrid( CSVReader.SplitCsvGrid(csv.text) ); 
@@ -27,7 +31,7 @@ public class ReadDemo : MonoBehaviour {
 		i = 0;
 		summonPapers ();
 		waitingForInput = true;
-
+		moveTheOtherSheets = false;
 	}
 
 	void Update () {
@@ -44,6 +48,13 @@ public class ReadDemo : MonoBehaviour {
 			if(recentInput != 0){
 				waitingForInput = false;
 				StartCoroutine (BlackScreen());
+			}
+		}
+		if (moveTheOtherSheets) {
+			foreach (Transform child in paperContainer.transform) {
+				if (!(child.tag == recentInput.ToString ())) {
+					child.transform.position += new Vector3 (0.0f, 5.0f, 0.0f);
+				}
 			}
 		}
 	}
@@ -72,13 +83,25 @@ public class ReadDemo : MonoBehaviour {
 	{
 		pageFlip.Play (1000);
 
+		moveTheOtherSheets = true;
+
+		foreach (Transform child in paperContainer.transform) {
+			if (child.tag == recentInput.ToString ()) {
+				if (child.GetComponent<PaperSupplier> ().guilty) {
+					golfClap.Play ();
+				} else {
+					incorrecNoise.Play ();
+				}
+			}
+		}
+
+		yield return new WaitForSeconds (0.25f);
+
 		foreach (Transform child in paperContainer.transform) {
 			if (!(child.tag == recentInput.ToString ())) {
 				GameObject.Destroy (child.gameObject);
 			}
 		}
-
-		yield return new WaitForSeconds (0.25f);
 
 		foreach (Transform child in paperContainer.transform) {
 			GameObject.Destroy (child.gameObject);
@@ -91,6 +114,7 @@ public class ReadDemo : MonoBehaviour {
 		rend.enabled = false;
 		recentInput = 0;
 		summonPapers();
+		moveTheOtherSheets = false;
 	}
 
 }
